@@ -51,3 +51,9 @@ jobs:
     environment: prod
     steps:
       - run: echo "Deploying to PROD app service  ${{ env.TEST_APP_SERVICE_NAME }}"
+
+  call-workflow-passing-input:
+    uses: ./.github/workflows/reusable-cd.yml
+    with:
+      test-input-variable: "passed-input-value"
+  

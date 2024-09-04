@@ -1,0 +1,14 @@
+name: Reusable CD
+
+on:
+  workflow_call:
+    inputs:
+      test-input-variable:
+      required: true
+      type: string
+
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The reusable CD with input parameter : ${{ inputs.test-input-variable }}"
