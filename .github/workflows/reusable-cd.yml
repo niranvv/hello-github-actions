@@ -11,4 +11,5 @@ jobs:
   reusable_workflow_job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "The reusable CD with input parameter : ${{ inputs.test-input-variable }}"
+      - run: echo "The reusable CD with input parameter  ${{ inputs.test-input-variable }}"
+      
