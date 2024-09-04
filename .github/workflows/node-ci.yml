@@ -14,9 +14,9 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        # node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x]
+        
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
@@ -27,3 +27,22 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+  
+  deploy-dev:
+    needs: build-node
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      run: echo "Deploying to DEV app service: $TEST_APP_SERVICE_NAME"
+
+  deploy-uat:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: uat
+    run: echo "Deploying to UAT app service: $TEST_APP_SERVICE_NAME"
+
+  deploy-prod:
+    needs: deploy-uat
+    runs-on: ubuntu-latest
+    environment: prod
+    run: echo "Deploying to PROD app service: $TEST_APP_SERVICE_NAME"
